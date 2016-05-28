@@ -1,0 +1,43 @@
+diff -u bin/xd-admin /opt/pivotal/spring-xd-1.3.0.RELEASE/xd/bin/xd-admin
+--- bin/xd-admin	2016-02-01 22:58:08.536535352 -0500
++++ /opt/pivotal/spring-xd-1.3.0.RELEASE/xd/bin/xd-admin	2016-02-01 23:00:58.371535352 -0500
+@@ -1,5 +1,8 @@
+ #!/usr/bin/env bash
+ 
++export JAVA_OPTS="-Xmx1G"
++export SPRING_PROFILES_ACTIVE="admin,${SPRING_PROFILES_ACTIVE}"
++
+ ##############################################################################
+ ##
+ ##  xd-admin start up script for UN*X
+@@ -76,7 +79,7 @@
+     x=$((x+1))
+ done
+ APP_HOME_LIB=$APP_HOME/lib
+-CLASSPATH=$APP_HOME/modules/processor/scripts:$APP_HOME/config
++CLASSPATH="$APP_HOME/modules/processor/scripts:$APP_HOME/config:/opt/sds/lib/*:/opt/spring-modules/ext/*:/etc/hive/conf"
+ if [ -d "$APP_HOME_LIB" ]; then
+     for i in "$APP_HOME_LIB"/*.jar; do
+         CLASSPATH="$CLASSPATH":"$i"
+diff -u bin/xd-container /opt/pivotal/spring-xd-1.3.0.RELEASE/xd/bin/xd-container
+--- bin/xd-container	2016-02-01 22:58:08.526535352 -0500
++++ /opt/pivotal/spring-xd/xd/bin/xd-container	2016-02-01 23:00:49.123535352 -0500
+@@ -1,5 +1,9 @@
+ #!/usr/bin/env bash
+ 
++export JAVA_OPTS="-Xmx2G"
++export SPRING_PROFILES_ACTIVE="container,${SPRING_PROFILES_ACTIVE}"
++export SPRING_CLOUD_CONFIG_ENABLED=TRUE
++
+ ##############################################################################
+ ##
+ ##  xd-container start up script for UN*X
+@@ -75,7 +79,7 @@
+     x=$((x+1))
+ done
+ APP_HOME_LIB=$APP_HOME/lib
+-CLASSPATH=$APP_HOME/modules/processor/scripts:$APP_HOME/config
++CLASSPATH="$APP_HOME/modules/processor/scripts:$APP_HOME/config:/opt/sds/lib/*:/opt/spring-modules/ext/*:/etc/hive/conf"
+ if [ -d "$APP_HOME_LIB" ]; then
+     for i in "$APP_HOME_LIB"/*.jar; do
+         CLASSPATH="$CLASSPATH":"$i"
